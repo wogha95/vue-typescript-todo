@@ -1,38 +1,65 @@
 <template>
   <div>
-    <h1>Vue todo with typescript</h1>
-    <todo-input
-      :item="todoText"
-      @inputEvent="updateTodoText"
-      @add="addTodoItem"
-    ></todo-input>
+    <header>
+      <h1>Vue todo with typescript</h1>
+    </header>
+    <main>
+      <todo-input
+        :item="todoText"
+        @inputEvent="updateTodoText"
+        @add="addTodoItem"
+      ></todo-input>
+      <div>
+        <ul>
+          <todo-list-item></todo-list-item>
+        </ul>
+      </div>
+    </main>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import TodoInput from "./components/TodoInput.vue";
+import TodoListItem from "./components/TodoListItem.vue";
+
+const STORAGE_KEY = "vue-todo-ts-v1";
+const storage = {
+  fetch() {
+    const todoItems = localStorage.getItem(STORAGE_KEY) || "[]";
+    const result = JSON.parse(todoItems);
+    return result;
+  },
+};
+
 export default Vue.extend({
-  components: { TodoInput },
+  components: { TodoInput, TodoListItem },
   data() {
     return {
       todoText: "",
+      todoItems: [] as any,
     };
   },
   methods: {
+    initTodoText() {
+      this.todoText = "";
+    },
     updateTodoText(value: string) {
       this.todoText = value;
     },
     addTodoItem() {
       const value = this.todoText;
-      console.log(value);
+      this.todoItems.push(value);
       localStorage.setItem(value, value);
       this.initTodoText();
     },
-    initTodoText() {
-      this.todoText = "";
-    },
+    fetchTodoItems() {
+      this.todoItems = storage.fetch();
+    }
   },
+  created: {
+    this.fetchTodoItems();
+  }
 });
 </script>
 
