@@ -11,7 +11,7 @@
       ></todo-input>
       <div>
         <ul>
-          <todo-list-item></todo-list-item>
+          <todo-list-item v-for="(todoItem, index) in todoItems" :key="index" :todoItem="todoItem"></todo-list-item>
         </ul>
       </div>
     </main>
@@ -25,6 +25,10 @@ import TodoListItem from "./components/TodoListItem.vue";
 
 const STORAGE_KEY = "vue-todo-ts-v1";
 const storage = {
+  save(todoItems: any[]) {
+    const parsed = JSON.stringify(todoItems);
+    localStorage.setItem(STORAGE_KEY, parsed);
+  },
   fetch() {
     const todoItems = localStorage.getItem(STORAGE_KEY) || "[]";
     const result = JSON.parse(todoItems);
@@ -37,7 +41,7 @@ export default Vue.extend({
   data() {
     return {
       todoText: "",
-      todoItems: [] as any,
+      todoItems: [] as any[],
     };
   },
   methods: {
@@ -50,7 +54,8 @@ export default Vue.extend({
     addTodoItem() {
       const value = this.todoText;
       this.todoItems.push(value);
-      localStorage.setItem(value, value);
+      storage.save(this.todoItems);
+      // localStorage.setItem(value, value);
       this.initTodoText();
     },
     fetchTodoItems() {

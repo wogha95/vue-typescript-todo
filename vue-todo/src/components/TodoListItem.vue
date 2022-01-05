@@ -1,10 +1,16 @@
 <template>
-  <li>item 1</li>
+  <li>
+    {{ todoItem }}
+  </li>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-export default Vue.extend({});
+export default Vue.extend({
+  props: {
+    todoItem: String,
+  },
+});
 </script>
 
 <style scoped></style>
