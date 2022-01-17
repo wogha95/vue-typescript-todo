@@ -42,7 +42,6 @@
 import Vue from "vue";
 import TodoInput from "./components/TodoInput.vue";
 import TodoListItem from "./components/TodoListItem.vue";
-import { VueEvent } from "./types";
 
 const STORAGE_KEY = "vue-todo-ts-v1";
 const storage = {
@@ -127,16 +126,16 @@ export default Vue.extend({
       });
       storage.save(this.todoItems);
     },
-    changePointer(event: VueEvent.Click) {
+    changePointer(event: MouseEvent) {
       this.pointXY.left = event.x;
       this.pointXY.top = event.y;
     },
     pointerIn() {
-      let abc = document.querySelector(".pointer")!;
+      let abc = document.querySelector(".pointer") as Element;
       abc.classList.remove("noneDisplay");
     },
     pointerOut() {
-      let abc = document.querySelector(".pointer")!;
+      let abc = document.querySelector(".pointer") as Element;
       abc.classList.add("noneDisplay");
     },
   },
