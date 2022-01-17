@@ -1,4 +1,4 @@
-# 📝TODOLIST
+# 📝TODO LIST
 Vue.js + TypeScript를 공부하기위해 TodoList를 만들었습니다.
 
 <br>
@@ -6,6 +6,7 @@ Vue.js + TypeScript를 공부하기위해 TodoList를 만들었습니다.
 - 개인 프로젝트
 - 개발기간 : 2022.01 (2주)
 - [배포된 프로젝트 링크](https://todo523.herokuapp.com)
+- [배포된 프로젝트 github](https://github.com/wogha95/vue-typescript-todo-deploy)
 
 <br>
 
