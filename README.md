@@ -22,6 +22,40 @@ Vue.js + TypeScript를 공부하기위해 TodoList를 만들었습니다.
 <br>
 
 ## ✔특징
+### 1. 커스텀 타입 정의
+``` js
+// TodoInput.vue
+// line 
+handleInput(event: InputEvent) {
+  // event.target이 EventTarget | null 로 추론되는데 이는 2가지 문제점을 가짐
+  // 문제1. event.target이 null일 가능성 있음 → InputElement 
+  // 문제2. event.target.value 접근 불가능 → HTMLInputElement의 속성에 value가 있음
+},
+```
+- 문제1은 InputEvent의 상위 interface로 올라가면 (InputEvent → UIEvent → Event) Event의 속성의 target이 아래와 같이 정의되어 있다. 이를 해결하기 위해 InputEvent의 target속성을 null이 아닌 타입으로 재정의한 타입을 이용한다.
+``` js
+readonly target: EventTarget | null;
+```
+
+- 문제2는 EventTarget 안에는 실행되기 전에 타입추론을 할 수 없으므로 해당 로직을 수행할 때 해당 EventTarget이 HTMLInputElement라는 것을 알려줘야한다. 이는 제네릭을 이용하여 해결할 수 있으며 문제1의 target의 속성을 HTMLInputElement로 재정의하면 해당 문제를 모두 해결할 수 있다.
+``` js
+// types/index.ts
+export interface Input<T extends EventTarget> extends InputEvent {
+  target: T;
+}
+```
+
+- 해결된 코드
+``` js
+// TodoInput.vue
+// line
+handleInput(event: VueEvent.Input<HTMLInputElement>) {
+  const eventTarget = event.target;
+  this.$emit("inputEvent", eventTarget.value);
+},
+```
+
+### 2. v-model을 사용하지 않고 props와 emit을 이용하여 2-way 데이터 바인딩
 
 
 
