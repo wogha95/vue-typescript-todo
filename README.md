@@ -55,9 +55,13 @@ handleInput(event: VueEvent.Input<HTMLInputElement>) {
 },
 ```
 
+<br>
+
 ### 2. v-model을 사용하지 않고 props와 emit을 이용하여 2-way 데이터 바인딩
+<img src='./img/2way-data-binding.png'>
+v-model을 이용하면 한글의 입력이 즉시 바인딩되지 않는 현상이 일어난다. 따라서 키보드가 눌렸을 때 TodoInput.vue에서 emit을 이용하여 App.vue에 있는 input값을 변경하고 변경된 input값은 다시 TodoInput.vue로 props로 전달하는 방법으로 해결한다.
 
-
+<br>
 
 <br>
 
