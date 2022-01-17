@@ -26,7 +26,8 @@ export default Vue.extend({
       this.$emit("toggle", this.todoItem, this.index);
     },
     removeItem() {
-      this.$emit("remove", this.index);
+      const response = confirm("삭제하겠습니까?");
+      if (response) this.$emit("remove", this.index);
     },
   },
 });
