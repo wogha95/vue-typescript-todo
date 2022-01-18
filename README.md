@@ -17,7 +17,8 @@ Vue.js + TypeScript를 공부하기위해 TodoList를 만들었습니다.
 <br>
 
 ## 🗂프로젝트 구조
-
+- data와 event 흐름
+<img src='./img/data-event-flow.png'>
 
 <br>
 
