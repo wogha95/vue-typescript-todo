@@ -26,7 +26,7 @@ Vue.js + TypeScript를 공부하기위해 TodoList를 만들었습니다.
 ### 1. 커스텀 타입 정의
 ``` js
 // TodoInput.vue
-// line 
+// line 28
 handleInput(event: InputEvent) {
   // event.target이 EventTarget | null 로 추론되는데 이는 2가지 문제점을 가짐
   // 문제1. event.target이 null일 가능성 있음 → InputElement 
@@ -49,7 +49,7 @@ export interface Input<T extends EventTarget> extends InputEvent {
 - 해결된 코드
 ``` js
 // TodoInput.vue
-// line
+// line 28
 handleInput(event: VueEvent.Input<HTMLInputElement>) {
   const eventTarget = event.target;
   this.$emit("inputEvent", eventTarget.value);
